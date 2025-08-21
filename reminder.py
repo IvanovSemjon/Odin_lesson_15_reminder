@@ -18,6 +18,7 @@ def set():
             now = datetime.datetime.now()
             dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             t = dt.timestamp()
+            label.config(text=f'Напоминание установлено на {hour:02}:{minute:02}')
         except Exception as e:
             mb.showerror(f'Ошибка! Неверный формат времени --> {e}')
 
@@ -33,12 +34,18 @@ def check():
 
 
 def play_sound():
+    global music
+    music = True
     pygame.mixer.init()
     pygame.mixer.music.load('reminder.mp3')
     pygame.mixer.music.play()
 
 
 def stop_music():
+    global music
+    if music:
+        pygame.mixer.music.stop()
+        music = False
     pygame.mixer.music.stop()
     label.config(text='Установить новое напоминание')
 
