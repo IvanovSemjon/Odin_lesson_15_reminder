@@ -31,6 +31,14 @@ def check():
             t = 0
     window.after(1000, check)
 
+
+def play_sound():
+    pygame.mixer.init()
+    pygame.mixer.music.load('reminder.mp3')
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+
 window = Tk()
 window.title("Напоминание")
 label = Label(text="Установите напоминание", font=("Arial Bold", 20))
