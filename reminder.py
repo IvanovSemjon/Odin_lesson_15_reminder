@@ -11,12 +11,12 @@ t = 0
 def set():
     global t
     rem = sd.askstring('Время напоминания', 'Введте время напоминания в формате ЧЧ:ММ (24 часовой формат)')
-    if rem is None:
+    if rem is not None:
         try:
             hour = int(rem.split(':')[0])
             minute = int(rem.split(':')[1])
             now = datetime.datetime.now()
-            dt = now.replace(hour=hour, minute=minute)
+            dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             t = dt.timestamp()
         except Exception as e:
             mb.showerror(f'Ошибка! Неверный формат времени --> {e}')
@@ -36,8 +36,12 @@ def play_sound():
     pygame.mixer.init()
     pygame.mixer.music.load('reminder.mp3')
     pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
+
+
+def stop_music():
+    pygame.mixer.music.stop()
+    label.config(text='Установить новое напоминание')
+
 
 window = Tk()
 window.title("Напоминание")
@@ -46,4 +50,8 @@ label.pack(pady=10)
 set_button = Button(text="Установить напоминание", font=("Arial Bold", 20), command=set)
 set_button.pack(pady=10)
 
+stop_button = Button(text="Остановить музыку", font=("Arial Bold", 20), command=stop_music)
+stop_button.pack(pady=10)
+
+check()
 window.mainloop()
