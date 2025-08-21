@@ -18,7 +18,8 @@ def set():
             now = datetime.datetime.now()
             dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             t = dt.timestamp()
-            label.config(text=f'Напоминание установлено на {hour:02}:{minute:02}')
+            text = sd.askstring('Текст напоминания', 'Введите текст напоминания')
+            label.config(text=f'Напоминание установлено на {hour:02}:{minute:02} с текстом "{text}"')
         except Exception as e:
             mb.showerror(f'Ошибка! Неверный формат времени --> {e}')
 
@@ -52,12 +53,12 @@ def stop_music():
 
 window = Tk()
 window.title("Напоминание")
-label = Label(text="Установите напоминание", font=("Arial Bold", 20))
+label = Label(text="Установите напоминание", font=("Arial Bold", 10))
 label.pack(pady=10)
-set_button = Button(text="Установить напоминание", font=("Arial Bold", 20), command=set)
+set_button = Button(text="Установить напоминание", font=("Arial Bold", 10), command=set)
 set_button.pack(pady=10)
 
-stop_button = Button(text="Остановить музыку", font=("Arial Bold", 20), command=stop_music)
+stop_button = Button(text="Остановить музыку", font=("Arial Bold", 10), command=stop_music)
 stop_button.pack(pady=10)
 
 check()
